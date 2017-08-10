@@ -1,0 +1,35 @@
+.search-form {border:#575757 1px solid;
+    padding: 15px 0 15px 0px;
+    background: #575757;}
+
+.sbtn-color{
+    background: #f9735a;
+}
+
+.profile-header {
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-item {
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    background: #FFF;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.btn-short {
+    border-right: 1px solid #E1E1E1;
+    width: 50%;
+    float: left;
+    border-color :red;
+}
+
+.profile-actions {
+    border-top: 1px solid #E1E1E1;
+}
+
+.profile-actions p{
+    text-align: center;
+    margin-top:15px;
+}

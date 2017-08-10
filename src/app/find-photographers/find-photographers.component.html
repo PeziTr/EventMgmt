@@ -1,0 +1,28 @@
+<div class="search-form">
+    <div class="container-fluid">
+        <form  [formGroup] = "addInputs" class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control input-lg input-width" placeholder="Search by events" formControlName="searchevents">
+
+
+
+
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control input-lg input-width" placeholder="Search by location" formControlName="searchlocations">
+            </div>
+            <div class="btn-group padding-btm">  
+                <button type="submit" class="btn btn-primary btn-lg sbtn-color" (click)="onSearch()">Search</button>
+                <button type="" class="btn btn-primary btn-lg sbtn-color" (click)="onReset()">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div *ngFor="let photographer of photographerList">
+        <pin-layout [vendorObj] = "photographer"></pin-layout>
+    </div>
+</div>

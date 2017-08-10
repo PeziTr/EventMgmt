@@ -1,20 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
+import { FindPhotographersComponent } from './find-photographers/find-photographers.component';
+import { ListViewLayout } from './pin-layout/pin-layout.component';
+import {GetPhotographerInfo} from './photo.service';
+//import { AngularMultiSelectModule } from 'angular2-multiselect-checkbox-dropdown/angular2-multiselect-dropdown';
+import { StarRatingModule } from 'angular-star-rating';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FindPhotographersComponent,
+    ListViewLayout
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule,
+    //AngularMultiSelectModule,
+    StarRatingModule.forRoot()
+
   ],
-  providers: [],
+  providers: [GetPhotographerInfo],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

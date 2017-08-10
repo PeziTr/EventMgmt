@@ -1,0 +1,60 @@
+<form class="form-horizontal" [formGroup]="serRegForm" (ngSubmit)="checkSubmit();">
+    <div class="form-group">
+        <label>Full Name :</label>
+        <input type="text" class="form-control" formControlName="serProviderName" id="serProviderName">
+    </div>
+    <div class="form-group">
+        <label>Email :</label>
+        <input type="email" class="form-control" formControlName="serProviderEmail" id="serProviderEmail">
+    </div>
+    <div class="form-group">
+        <label>Contact Number:</label>
+        <input type="text" class="form-control" formControlName="serProviderContact" id="serProviderContact">
+    </div>
+    <div class="form-group">
+        <label>Category :</label>
+          <div class="row">
+            <div class="col-xs-12" [formGroup]="thisCat" *ngFor="let thisCat of serRegForm.controls.serProviderCategory.controls; let i = index">
+                
+                    <div class="form-group col-sm-4">
+                        <label class="control-label col-sm-3">Select Category</label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" formControlName="catType">-->
+                            <angular2-multiselect class="form-control" formControlName="catType" [data]="dropdownList" 
+                                [settings]="dropdownSettings" 
+                                (onSelect)="onItemSelect($event, i, 'catType')"
+                                >
+                            </angular2-multiselect>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label col-sm-3">Select Event</label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" formControlName="catEvent">-->
+                            <angular2-multiselect class="form-control" formControlName="catEvent" [data]="dropdownList2" 
+                                [settings]="dropdownSettings" 
+                                (onSelect)="onItemSelect($event, i, 'catType')"
+                                >
+                            </angular2-multiselect>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label col-sm-3">Select Speciality</label>
+                        <div class="col-sm-9">
+                            <!--<input type="text" class="form-control" formControlName="catSpeciality">-->
+                            <angular2-multiselect class="form-control" formControlName="catSpeciality" [data]="dropdownList3" 
+                                [settings]="dropdownSettings" 
+                                (onSelect)="onItemSelect($event, i, 'catType')"
+                                >
+                            </angular2-multiselect>
+                        </div>
+                    </div>
+                
+            </div>
+            
+           </div>
+            <button type="button" (click)="addThisCat()">Add new Category</button>
+    </div>
+    <button type="submit"  class="btn btn-primary">Submit</button>
+
+</form>

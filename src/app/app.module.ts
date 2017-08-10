@@ -1,20 +1,46 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { EventdetailsformComponent } from './eventdetailsform/eventdetailsform.component';
+import { EventPlannerService } from './services/app.myEventServices';
+import { AreaselectorComponent } from './areaselector/areaselector.component';
+import { ModalModule } from 'ngx-bootstrap';
+import { RegserviceproviderComponent } from './regserviceprovider/regserviceprovider.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-checkbox-dropdown/angular2-multiselect-dropdown';
+
+const appRoutes: Routes = [
+  { path: '', component: HomepageComponent },
+  { path: 'selectarea',      component: AreaselectorComponent },
+  { path: 'getservice',      component: EventdetailsformComponent },
+  { path: 'registerservice',      component: RegserviceproviderComponent }
+];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EventdetailsformComponent,
+    AreaselectorComponent,
+    RegserviceproviderComponent,
+    HomepageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
+    ModalModule.forRoot(),
+    AngularMultiSelectModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers:  [EventPlannerService],
+  bootstrap:  [AppComponent]
 })
 export class AppModule { }

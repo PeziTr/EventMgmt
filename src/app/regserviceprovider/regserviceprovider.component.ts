@@ -16,53 +16,45 @@ export class RegserviceproviderComponent implements OnInit {
   dropdownList2 = [];
   dropdownList3 = [];
   selectedItems = [];
-  dropdownSettings = {};
+  dropdownSpeciSettings = {};
+  dropdownEventSettings = {};
+  dropdownCatSettings = {};
 
   constructor(private _service : EventPlannerService) {
     this.dropdownList = [
-                              {"id":1,"itemName":"India"},
-                              {"id":2,"itemName":"Singapore"},
-                              {"id":3,"itemName":"Australia"},
-                              {"id":4,"itemName":"Canada"},
-                              {"id":5,"itemName":"South Korea"},
-                              {"id":6,"itemName":"Germany"},
-                              {"id":7,"itemName":"France"},
-                              {"id":8,"itemName":"Russia"},
-                              {"id":9,"itemName":"Italy"},
-                              {"id":10,"itemName":"Sweden"}
+                              {"id":1,"itemName":"Photographer"},
+                              {"id":2,"itemName":"Caterer"},
+                              {"id":3,"itemName":"Sound System"},
+                              {"id":4,"itemName":"Transporter"},
+                              {"id":5,"itemName":"Decorator"}
                           ];
-    this.dropdownList2 = [
-                              {"id":1,"itemName":"Ind"},
-                              {"id":2,"itemName":"Sing"},
-                              {"id":3,"itemName":"Aust"},
-                              {"id":4,"itemName":"Cana"},
-                              {"id":5,"itemName":"S. Korea"},
-                              {"id":6,"itemName":"Ger"},
-                              {"id":7,"itemName":"Fra"},
-                              {"id":8,"itemName":"Rus"},
-                              {"id":9,"itemName":"Ita"},
-                              {"id":10,"itemName":"Swed"}
-                          ];
-    this.dropdownList3 = [
-                              {"id":1,"itemName":"I"},
-                              {"id":2,"itemName":"S"},
-                              {"id":3,"itemName":"A"},
-                              {"id":4,"itemName":"C"},
-                              {"id":5,"itemName":"S"},
-                              {"id":6,"itemName":"G"},
-                              {"id":7,"itemName":"F"},
-                              {"id":8,"itemName":"R"},
-                              {"id":9,"itemName":"I"},
-                              {"id":10,"itemName":"S"}
-                          ];
-    this.dropdownSettings = {
-                                  singleSelection: true, 
-                                  text:"Select Countries",
+    
+    this.dropdownSpeciSettings = {
+                                  singleSelection: false, 
+                                  text:"Select Specialities",
                                   selectAllText:'Select All',
                                   unSelectAllText:'UnSelect All',
                                   enableSearchFilter: true,
                                   classes:"myclass custom-class"
-                            };   
+                            };
+    
+    this.dropdownEventSettings = {
+                                  singleSelection: false, 
+                                  text:"Select Events",
+                                  selectAllText:'Select All',
+                                  unSelectAllText:'UnSelect All',
+                                  enableSearchFilter: true,
+                                  classes:"myclass custom-class"
+                            };
+
+    this.dropdownCatSettings = {
+                                  singleSelection: true, 
+                                  text:"Select Category",
+                                  selectAllText:'Select All',
+                                  unSelectAllText:'UnSelect All',
+                                  enableSearchFilter: true,
+                                  classes:"myclass custom-class"
+                            };
   }
 
   ngOnInit() {
@@ -91,36 +83,117 @@ export class RegserviceproviderComponent implements OnInit {
   }
 
   checkSubmit(){
+
+    console.log(this.serRegForm);
+
     var serProd           = this.serRegForm.get('serProviderCategory').value;
     var countSerProvider  = serProd.length;
-
-    console.log("before", this.serRegForm);
 
     var checkingArr = [];
 
     serProd.forEach(element => {
-        console.log("ele ", element);
+        var newObj = {};
+
         for (var val in element) {
-          console.log("obj check", val, element[val]);
+
+          console.log("checking here - ", val, element );
+
+          var newChildObj = [];
           var eleVal = element[val];
 
+          if(eleVal === null)
+          {
+            this.serRegForm.setErrors({categoryError : "Categories not selected Properly"});
+            continue;
+          }
+
           eleVal.forEach(childEle =>{
-            console.log("childEle", childEle.itemName);
+            newChildObj.push(childEle.itemName);
           });
 
+          newObj[val] = newChildObj;
         }
+
+        checkingArr.push(newObj);
       });
 
+    this.serRegForm.patchValue({
+      serProviderCategory : checkingArr
+    });
 
-    // this.serRegForm.patchValue({
-    //   serProviderCategory : [{catEvent:'thissss'}]
-    // });
-
-    console.log("after",this.serRegForm);
-    // this._service.saveVendor(this.serRegForm.value);
+    if (this.serRegForm.valid)
+    {
+      this._service.saveVendor(this.serRegForm.value);
+      this.serRegForm.patchValue({
+        serProviderCategory : serProd
+      });
+    }
+    else
+    {
+      alert("Please fill the form correctly");
+      this.serRegForm.patchValue({
+        serProviderCategory : serProd
+      });
+    }
   }
 
   onItemSelect(item, indexNo, typeOfField){
         // console.log(item, indexNo, typeOfField);
     }
+  
+  onCatSelect(item, indexNo, typeOfField){
+         console.log(item.itemName, indexNo, typeOfField);
+
+    var specialityList = {
+      Photographer : [
+                  {"id":1,"itemName":"Under water photography"},
+                  {"id":2,"itemName":"videography"},
+                  {"id":3,"itemName":"children photography"},
+                  {"id":4,"itemName":"couple photography"}
+                ],
+      Caterer : [
+                  {"id":1,"itemName":"Indian"},
+                  {"id":2,"itemName":"Italian"},
+                  {"id":3,"itemName":"Chines"},
+                  {"id":4,"itemName":"South Indian"},
+                  {"id":5,"itemName":"Sweets"}
+                ],
+      "Sound System" : [
+                  {"id":1,"itemName":"DJ"},
+                  {"id":2,"itemName":"Bhajan"},
+                  {"id":3,"itemName":"Bhojpuri"},
+                  {"id":4,"itemName":"Bollywood"},
+                  {"id":5,"itemName":"Rock Music"}
+                ],
+      Transporter : [
+                  {"id":1,"itemName":"Bus"},
+                  {"id":2,"itemName":"Cars"},
+                  {"id":3,"itemName":"Aeroplane"},
+                  {"id":4,"itemName":"Train"},
+                  {"id":5,"itemName":"Trucks"}
+                ],
+      Decorator :[
+                  {"id":1,"itemName":"Hall"},
+                  {"id":2,"itemName":"Bunglow"},
+                  {"id":3,"itemName":"Lawn"}
+                ]
+
+    }
+
+    this.dropdownList2 = [
+                            {"id":1,"itemName":"Weeding"},
+                            {"id":2,"itemName":"Birthday"},
+                            {"id":3,"itemName":"Launch Event"},
+                            {"id":4,"itemName":"Conferences"},
+                            {"id":5,"itemName":"Corporate Meetings"}
+                        ];
+    
+    this.dropdownList3[indexNo] = specialityList[item.itemName];
+
+    }
+
+  onEventSelect(item, indexNo, typeOfField){
+        // console.log(item, indexNo, typeOfField);
+  }
+
 }

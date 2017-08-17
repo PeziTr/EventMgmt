@@ -8,6 +8,7 @@ import { ListViewLayout } from './pin-layout/pin-layout.component';
 import {GetPhotographerInfo} from './photo.service';
 //import { AngularMultiSelectModule } from 'angular2-multiselect-checkbox-dropdown/angular2-multiselect-dropdown';
 import { StarRatingModule } from 'angular-star-rating';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { StarRatingModule } from 'angular-star-rating';
     FormsModule,
     HttpModule,
     ReactiveFormsModule,
+    Ng2SearchPipeModule,
     //AngularMultiSelectModule,
     StarRatingModule.forRoot()
 

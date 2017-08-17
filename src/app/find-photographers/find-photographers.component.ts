@@ -55,8 +55,8 @@ export class FindPhotographersComponent implements OnInit {
 
   onReset(){
     this.addInputs.patchValue({
-      'searchevents':"Events",
-      'searchlocations':"Locations"
+      'searchevents':"",
+      'searchlocations':""
     })
   }
 }

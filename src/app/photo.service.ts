@@ -10,8 +10,7 @@ export class GetPhotographerInfo{
 
     getInfo()
     {
-
-    return this.service.get('http://localhost:28017/services/testservice', this.options);
+        return this.service.get('http://localhost:28017/services/testservice', this.options);
     // .subscribe(
     //     value => {
     //         //console.log("Data is :" + JSON.stringify(value.json().rows));

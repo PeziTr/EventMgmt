@@ -9,7 +9,7 @@
 
             </div>
             <div class="form-group">
-                <input type="text" class="form-control input-lg input-width" placeholder="Search by location" formControlName="searchlocations">
+                <input type="text" class="form-control input-lg input-width" placeholder="Search by location" formControlName="searchlocations" [(ngModel)]="location">
             </div>
             <div class="btn-group padding-btm">  
                 <button type="submit" class="btn btn-primary btn-lg sbtn-color" (click)="onSearch()">Search</button>
@@ -22,7 +22,7 @@
 
 
 <div class="container-fluid">
-    <div *ngFor="let photographer of photographerList">
+    <div *ngFor="let photographer of photographerList|filter:location">
         <pin-layout [vendorObj] = "photographer"></pin-layout>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 @Injectable()
 
@@ -8,9 +8,14 @@ export class GetPhotographerInfo{
     options = new RequestOptions();
     photograhers;
 
-    getInfo()
+    getInfo(param1,param2)
     {
-        return this.service.get('http://localhost:28017/services/testservice', this.options);
+            let params:URLSearchParams = new URLSearchParams();
+            params.set('limit', param1);
+            params.set('skip', param2);
+
+
+        return this.service.get('http://localhost:28017/services/testservice', {search:params});
     // .subscribe(
     //     value => {
     //         //console.log("Data is :" + JSON.stringify(value.json().rows));

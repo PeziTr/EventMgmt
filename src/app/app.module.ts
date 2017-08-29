@@ -9,6 +9,9 @@ import {GetPhotographerInfo} from './photo.service';
 //import { AngularMultiSelectModule } from 'angular2-multiselect-checkbox-dropdown/angular2-multiselect-dropdown';
 import { StarRatingModule } from 'angular-star-rating';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {HttpClientModule} from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +25,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     HttpModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
+    HttpClientModule,
+    InfiniteScrollModule,
     //AngularMultiSelectModule,
     StarRatingModule.forRoot()
 

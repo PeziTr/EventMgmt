@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GetPhotographerInfo } from '../photo.service';
 import { FormArray, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
-
+import { DOCUMENT } from '@angular/platform-browser';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-find-photographers',
@@ -17,6 +18,8 @@ export class FindPhotographersComponent implements OnInit {
   addInputs:FormGroup;
   dropdownList = [];
   dropdownSettings = {};
+  lastkey;
+  finished = false 
 
   ngOnInit() {
     this.addInputs = new FormGroup({
@@ -40,7 +43,7 @@ export class FindPhotographersComponent implements OnInit {
 
     //this.photographersdata = this.photographers.getInfo();
     //console.log(this.photographerList);
-        this.photographers.getInfo().subscribe(
+        this.photographers.getInfo(8,0).subscribe(
         value => {
             //console.log("Data is :" + JSON.stringify(value.json().rows));
             this.photographerList= value.json().rows;
@@ -53,10 +56,47 @@ export class FindPhotographersComponent implements OnInit {
 
   }
 
+  onScrollDown()
+  {
+    let scrollHeight = window.document.body.scrollTop;
+    console.log(window.document.body.scrollTop);
+    if (scrollHeight > 200)
+    {
+      console.log("fire");
+        this.photographers.getInfo(16,0).subscribe(
+        value => {
+            //console.log("Data is :" + JSON.stringify(value.json().rows));
+            this.photographerList= value.json().rows;
+        }
+        );
+    }
+        
+  }
+
   onReset(){
     this.addInputs.patchValue({
       'searchevents':"",
       'searchlocations':""
     })
+  }
+
+  onScroll()
+  {
+    if (this.finished) return
+    console.log("Scrolled");
+        this.photographers.getInfo(8,8).subscribe(
+        value => {
+            //console.log("Data is :" + JSON.stringify(value.json().rows));
+
+            this.lastkey = 'test photographer 40';
+
+            this.photographerList= this.photographerList.concat(value.json().rows);
+
+            if (this.lastkey === this.photographerList.slice(-1)[0].name)
+            {
+              this.finished=true;
+            }
+        }
+        );
   }
 }

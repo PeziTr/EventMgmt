@@ -11,13 +11,16 @@ import { StarRatingModule } from 'angular-star-rating';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {HttpClientModule} from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-
-
+import { ProviderDetailViewComponent } from './provider-detail-view/provider-detail-view.component';
+import { GoTopButtonModule } from 'ng2-go-top-button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+ 
 @NgModule({
   declarations: [
     AppComponent,
     FindPhotographersComponent,
-    ListViewLayout
+    ListViewLayout,
+    ProviderDetailViewComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +30,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     Ng2SearchPipeModule,
     HttpClientModule,
     InfiniteScrollModule,
+    GoTopButtonModule,
+    BrowserAnimationsModule,
     //AngularMultiSelectModule,
     StarRatingModule.forRoot()
 
